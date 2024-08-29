@@ -6,17 +6,15 @@
 
 #include "keys_cs_qwerty.h"
 #include <behaviors.dtsi>
-#include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
-#include <dt-bindings/zmk/outputs.h>
-#include <dt-bindings/zmk/mouse.h>
 #include <dt-bindings/zmk/backlight.h>
+#include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/ext_power.h>
-  
-   
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/mouse.h>
+#include <dt-bindings/zmk/outputs.h>
+
 #define SYM 1
 #define UPPER 2
-
 
 / {
     behaviors {
@@ -27,6 +25,7 @@
             bindings = <&mkp LCLK>, <&bt BT_CLR>;
         };
     };
+
     behaviors {
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
@@ -34,56 +33,190 @@
             tapping-term-ms = <500>;
             bindings = <&out &kp>;
         };
+
+        mmE: mmE {
+            compatible = "zmk,behavior-mod-morph";
+            label = "ruzne varianty E";
+            bindings = <&mt CS_E_ACUTE E>, <&kp CS_E_CARON>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_RCTL|MOD_LCTL)>;
+        };
+
+        mmU: mmU {
+            compatible = "zmk,behavior-mod-morph";
+            label = "varianty U";
+            bindings = <&mt CS_U_ACUTE U>, <&kp CS_U_RING>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LCTL|MOD_RCTL)>;
+        };
+
+        mm0: mm0 {
+            compatible = "zmk,behavior-mod-morph";
+            label = "SwiftKey0_3 and PrintScreen";
+            bindings = <&mt LC(RA(NUMBER_3)) LC(RA(N1))>, <&kp PRINTSCREEN>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LCTL|MOD_RCTL)>;
+        };
+
+        tdSPCdot: tdSPCdot {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TapDance Space or Dot";
+            #binding-cells = <0>;
+            bindings = <&kp SPACE>, <&kp CS_DOT>;
+        };
+
+        htN: htN {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HoldTap N";
+            bindings = <&NsHackem>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+        };
+
+        htT: htT {
+            compatible = "zmk,behavior-hold-tap";
+            label = "holdTap T variant";
+            bindings = <&TsHackem>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+        };
+
+        htD: htD {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HoldTap D variant";
+            bindings = <&DsHackem>, <&kp>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <200>;
+            flavor = "tap-preferred";
+        };
+
+        tdALTsl_l: tdALTsl_l {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TapDance Alt Sticky Layer vs Layer";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            bindings = <&sl 1>, <&tog 1>;
+        };
+
+        tdArrCAP: tdArrCAP {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TapDance ArrowLayer vs CAP ";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            bindings = <&to 3>, <&kp CAPS>;
+        };
+
+        mmBHUR: mmBHUR {
+            compatible = "zmk,behavior-mod-morph";
+            label = "ModMorph BackHome UndoRedo";
+            bindings = <&mt LG(RETURN) K_BACK>, <&mt LC(LS(Z)) LC(Z)>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LCTL|MOD_RCTL)>;
+        };
+
+        mmTabVyp: mmTabVyp {
+            compatible = "zmk,behavior-mod-morph";
+            label = "ModMorph TabMenu vs Switchoffs";
+            bindings = <&mt K_APP TAB>, <&htAOFFtog 0 EP_TOG>;
+
+            #binding-cells = <0>;
+            mods = <(MOD_LCTL|MOD_RCTL)>;
+        };
+
+        htAOFFtog: htAOFFtog {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HoldTap AllOff or Toggle";
+            bindings = <&mSOPK>, <&ext_power>;
+
+            #binding-cells = <2>;
+            tapping-term-ms = <500>;
+        };
+    };
+
+    macros {
+        TsHackem: TsHackem {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CS_CARON &kp T>;
+            label = "TSHACKEM";
+        };
+
+        NsHackem: NsHackem {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CS_CARON &kp N>;
+            label = "NSHACKEM";
+        };
+
+        DsHackem: DsHackem {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp CS_CARON &kp D>;
+            label = "DSHACKEM";
+        };
+
+        mSOPK: mSOPK {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&ext_power EP_TOG &kp K_COFFEE>;
+            label = "MSOPK";
+        };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
-
             bindings = <
-//         --------------------------------------------------------------------------------------------------------------------------         
-//         |    Shoulder Key1    |                                                                             |    Shoulder Key2    |     
-// |         Call key      |      Blackberry Key        |    Trackpad    |             Back Key                |             Endcall Key          |
-// |     Q      |     W    |     E    |     R    |      T      |       Y        |       U        |        I        |       O      |      P        |     
-// |     A      |     S    |     D    |     F    |      G      |       H        |       J        |        K        |       L      |      ←        |  
-// |     alt    |     Z    |     X    |     C    |      V      |       B        |       N        |        M        |       $      |    Enter      |   
-//        |         aA     |         0           |           SPACE              |         SYM         |        aA          |       
-//        -----------------------------------------------------------------------------------------------------------------
-
-                 &mkp LCLK                                                                                          &mkp RCLK
-    &kp CLCK                &kp LGUI                            &mkp LCLK                          &mt ESC K_BACK                    &kp TAB
-    &kp Q        &kp W      &kp E       &kp R     &kp T         &kp Y             &kp U            &kp I            &kp O            &kp P
-    &kp A        &kp S      &kp D       &kp F     &kp G         &kp H             &kp J            &kp K            &kp L            &kp BSPC
-    &kp LSHFT    &kp Z      &kp X       &kp C     &kp V         &kp B             &kp N            &kp M            &kp SEMI         &kp ENTER
-    &kp LCTRL               &kp LALT                            &kp SPACE                          &tog SYM                          &tog UPPER
+&none             &none
+&tdArrCAP         &kp RIGHT_ALT     &mkp LCLK       &mmBHUR           &mmTabVyp
+&kp Q             &kp W             &mmE            &mt CS_R_CARON R  &htT 0 T   &mt CS_Y_ACUTE Y    &mmU       &mt CS_I_ACUTE I  &mt CS_ACUTE O  &kp P
+&mt CS_A_ACUTE A  &mt CS_S_CARON S  &htD 0 D        &kp F             &kp G      &kp H               &kp J      &mt CS_ACUTE K    &mt CS_CARON L  &kp BSPC
+&tdALTsl_l        &mt CS_Z_CARON Z  &kp X           &mt CS_C_CARON C  &kp V      &kp B               &htN 0 N   &kp M             &kp DELETE      &kp ENTER
+                                    &kp LEFT_SHIFT                    &mm0       &tdSPCdot           &kp LCTRL  &tog UPPER
             >;
         };
 
-
         sym_layer {
-
-            bindings = <        
-                 &kp C_VOL_UP                                                                                       &kp C_VOL_DN
-    &kp PSCRN               &kp C_AC_SEARCH                     &mkp LCLK                          &kp F5                            &kp F12 
-    &kp HASH     &kp N1     &kp N2      &kp N3    &mt LBKT LPAR &mt RBKT RPAR     &kp UNDER        &kp MINUS        &kp PLUS         &kp AT
-    &kp STAR     &kp N4     &kp N5      &kp N6    &kp SLASH     &kp COLON         &kp SEMI         &kp APOS         &kp DQT          &kp DEL
-    &kp LSHFT    &kp N7     &kp N8      &kp N9    &kp QMARK     &kp EXCL          &kp COMMA        &kp DOT          &kp C_MUTE       &kp ENTER
-    &kp LCTRL               &kp N0                              &kp SPACE                          &tog SYM                          &tog UPPER
+            bindings = <
+&none      &none
+&tdArrCAP  &kp RIGHT_ALT  &mkp LCLK       &mmBHUR  &mmTabVyp
+&kp HASH   &kp N1         &kp N2          &kp N3   &mt LBKT LPAR  &mt RBKT RPAR    &kp UNDER  &kp MINUS   &kp PLUS          &kp AT
+&kp STAR   &kp N4         &kp N5          &kp N6   &kp SLASH      &kp COLON        &kp SEMI   &kp APOS    &kp DQT           &kp DEL
+&to 0      &kp N7         &kp N8          &kp N9   &kp QMARK      &kp EXCL         &kp COMMA  &kp DOT     &mt CS_EURO DLLR  &kp ENTER
+                          &kp LEFT_SHIFT           &kp N0         &tdSPCdot        &kp RCTRL  &tog UPPER
             >;
         };
 
         upper_layer {
-
             bindings = <
-                 &msc SCRL_UP                                                                                       &msc SCRL_DOWN
-    &bt BT_SEL 0            &bt BT_SEL 1                             &td0                           &bt BT_SEL 2                     &bt BT_SEL 3
-    &none        &kp UP     &none       &sys_reset &ext_power EP_TOG &none         &kp LT           &kp GT          &kp PIPE         &kp KP_EQUAL
-    &kp LEFT     &kp DOWN   &kp RIGHT   &none      &kp BSLH          &kp AMPS      &kp LBRC         &kp RBRC        &kp CARET        &kp BSPC
-    &kp LSHFT    &none      &none       &none      &bl BL_DEC        &bl BL_TOG    &bl BL_INC       &none           &bootloader      &kp ENTER
-    &kp LCTRL               &kp LALT                                 &hm OUT_TOG SPACE              &tog SYM                         &tog UPPER
+&none         &none
+&bt BT_SEL 0  &bt BT_SEL 1  &td0       &bt BT_SEL 2  &bt BT_SEL 3
+&none         &kp UP        &none      &sys_reset    &ext_power EP_TOG  &none                &kp LT      &kp GT      &kp PIPE     &kp KP_EQUAL
+&kp LEFT      &kp DOWN      &kp RIGHT  &none         &kp BSLH           &kp AMPS             &kp LBRC    &kp RBRC    &kp CARET    &kp BSPC
+&kp LSHFT     &none         &none      &none         &bl BL_DEC         &bl BL_TOG           &bl BL_INC  &none       &bootloader  &kp ENTER
+                            &kp LCTRL                &kp LALT           &hm OUT_TOG SPACE    &tog SYM    &tog UPPER
+            >;
+        };
+
+        layer_3_Arrows {
+            bindings = <
+&trans  &trans
+&trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans     &kp K_SCROLL_UP      &kp PAGE_UP     &kp UP          &kp HOME         &trans
+&trans  &trans  &trans  &trans  &trans     &trans               &kp LEFT_ARROW  &mkp LCLK       &kp RIGHT_ARROW  &trans
+&trans  &trans  &trans  &trans  &trans     &kp K_SCROLL_DOWN    &kp PAGE_DOWN   &kp DOWN_ARROW  &kp END          &trans
+                &trans          &mkp MCLK  &mkp LCLK            &mkp RCLK       &trans
             >;
         };
     };
 };
-
