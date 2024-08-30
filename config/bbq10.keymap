@@ -178,7 +178,7 @@
         default_layer {
             bindings = <
 &none             &none
-&tdArrCAP         &kp RIGHT_ALT     &mkp LCLK       &mmBHUR           &mmTabVyp
+&tdArrCAP         &sk RIGHT_ALT     &mkp LCLK       &mmBHUR           &mmTabVyp
 &kp Q             &kp W             &mmE            &mt CS_R_CARON R  &htT 0 T   &mt CS_Y_ACUTE Y    &mmU       &mt CS_I_ACUTE I  &mt CS_ACUTE O  &kp P
 &mt CS_A_ACUTE A  &mt CS_S_CARON S  &htD 0 D        &kp F             &kp G      &kp H               &kp J      &mt CS_ACUTE K    &mt CS_CARON L  &kp BSPC
 &tdALTsl_l        &mt CS_Z_CARON Z  &kp X           &mt CS_C_CARON C  &kp V      &kp B               &htN 0 N   &kp M             &kp DELETE      &kp ENTER
@@ -189,7 +189,7 @@
         sym_layer {
             bindings = <
 &none      &none
-&tdArrCAP  &kp RIGHT_ALT  &mkp LCLK       &mmBHUR  &mmTabVyp
+&tdArrCAP  &sk RIGHT_ALT  &mkp LCLK       &mmBHUR  &mmTabVyp
 &kp HASH   &kp N1         &kp N2          &kp N3   &mt LBKT LPAR  &mt RBKT RPAR    &kp UNDER  &kp MINUS   &kp PLUS          &kp AT
 &kp STAR   &kp N4         &kp N5          &kp N6   &kp SLASH      &kp COLON        &kp SEMI   &kp APOS    &kp DQT           &kp DEL
 &to 0      &kp N7         &kp N8          &kp N9   &kp QMARK      &kp EXCL         &kp COMMA  &kp DOT     &mt CS_EURO DLLR  &kp ENTER
