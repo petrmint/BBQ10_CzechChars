@@ -111,7 +111,7 @@
             label = "TapDance ArrowLayer vs CAP ";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            bindings = <&to 3>, <&kp CAPS>;
+            bindings = <&mo 3>, <&kp CAPS>;
         };
 
         mmBHUR: mmBHUR {
